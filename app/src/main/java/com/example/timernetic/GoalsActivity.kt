@@ -10,12 +10,14 @@ import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 
 class GoalsActivity : AppCompatActivity() {
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var drawerToggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
-        private lateinit var drawerLayout: DrawerLayout
-        private lateinit var drawerToggle: ActionBarDrawerToggle
+
         super.onCreate(savedInstanceState)
         drawerLayout = findViewById(R.id.drawer_layout)
-        drawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer)
+        drawerToggle =
+            ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer)
 
         drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
@@ -63,6 +65,5 @@ class GoalsActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
-    }
     }
 }
