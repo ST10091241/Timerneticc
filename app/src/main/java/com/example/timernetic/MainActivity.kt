@@ -32,14 +32,14 @@ class MainActivity : AppCompatActivity() {
                     // navController.navigate(R.id.action_splashFragment_to_homeFragment)
                 }
                 R.id.nav_option2 -> {
-                    val intent = Intent(this, Dailygoal::class.java)
+                    val intent = Intent(this, GoalsActivity::class.java)
                     startActivity(intent)
                 }
 
 
                 R.id.nav_option3 -> {
                     // Handle option 3 click
-                    val intent = Intent(this, TimesheetView::class.java)
+                    val intent = Intent(this, ViewTimesheetActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_option4 -> {
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_option5 -> {
                     // Handle option 5 click
-                    val intent = Intent(this, MainMenu::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
             }
