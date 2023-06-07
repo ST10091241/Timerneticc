@@ -4,16 +4,33 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.timernetic.utils.groupData
+import com.example.timernetic.utils.taskData
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 
 class GroupActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+    private lateinit var dataReference: DatabaseReference
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var drawerToggle: ActionBarDrawerToggle
+    //page components
+    private lateinit var closeGroupPopUpBtn:ImageView
+    private lateinit var taskGroupName:EditText
+    private lateinit var addGroupbtn:ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+        dataReference = FirebaseDatabase.getInstance().reference
+            .child("Category").child(auth.currentUser?.uid.toString())
         drawerLayout = findViewById(R.id.drawer_layout)
         drawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer)
 
@@ -56,6 +73,31 @@ class GroupActivity : AppCompatActivity() {
             true
         }
         setContentView(R.layout.activity_group)
+        //set page components
+        closeGroupPopUpBtn = findViewById(R.id.closeGroupPopUpBtn)
+        closeGroupPopUpBtn.setOnClickListener{
+            val intent = Intent(this@GroupActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        addGroupbtn = findViewById(R.id.addGroupbtn)
+        taskGroupName = findViewById(R.id.taskGroupName)
+        addGroupbtn.setOnClickListener{
+            val group = groupData("Category",taskGroupName.text.toString())
+            dataReference.child(group.taskId).push().setValue(group).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Group created successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    taskGroupName.text = null
+                } else {
+                    Toast.makeText(applicationContext, it.exception?.message, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        }
 
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
