@@ -10,7 +10,7 @@ import com.google.firebase.database.*
 class SplashActivity : AppCompatActivity() {
     private val SPLASH_DELAY: Long = 2000 // Delay in milliseconds
     private lateinit var auth: FirebaseAuth
-    private lateinit var dataReference: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
