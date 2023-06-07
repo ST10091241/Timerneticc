@@ -57,6 +57,7 @@ class GoalsActivity : AppCompatActivity() {
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
+
         setContentView(R.layout.activity_goals)
     }
 
