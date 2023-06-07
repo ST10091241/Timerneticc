@@ -56,6 +56,7 @@ class GroupActivity : AppCompatActivity() {
             true
         }
         setContentView(R.layout.activity_group)
+
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drawerToggle.onOptionsItemSelected(item)) {
