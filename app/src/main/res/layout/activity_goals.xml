@@ -43,7 +43,6 @@
 
         <TimePicker
             android:id="@+id/timePicker"
-            style="@style/TimePickerStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:numbersBackgroundColor="#D6D6D6"
