@@ -8,9 +8,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import android.view.MenuItem
-import androidx.navigation.findNavController
-import androidx.navigation.Navigation.findNavController
-import com.example.timernetic.Fragments.HomeFragment
 import com.example.timernetic.R
 
 class MainActivity : AppCompatActivity() {
