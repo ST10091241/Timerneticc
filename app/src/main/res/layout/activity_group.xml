@@ -90,4 +90,12 @@
             app:layout_constraintTop_toBottomOf="@+id/emailcrd" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:theme="@style/NavDrawerStyle"
+        app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
