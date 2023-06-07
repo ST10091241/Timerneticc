@@ -28,9 +28,7 @@ class GroupActivity : AppCompatActivity() {
     private lateinit var addGroupbtn:ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = FirebaseAuth.getInstance()
-        dataReference = FirebaseDatabase.getInstance().reference
-            .child("Category").child(auth.currentUser?.uid.toString())
+
         drawerLayout = findViewById(R.id.drawer_layout)
         drawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer)
 
@@ -83,21 +81,48 @@ class GroupActivity : AppCompatActivity() {
         addGroupbtn = findViewById(R.id.addGroupbtn)
         taskGroupName = findViewById(R.id.taskGroupName)
         addGroupbtn.setOnClickListener{
-            val group = groupData("Category",taskGroupName.text.toString())
-            dataReference.child(group.taskId).push().setValue(group).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Toast.makeText(
-                        applicationContext,
-                        "Group created successfully",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    taskGroupName.text = null
+            val groupName = taskGroupName.text.toString()
+            if (groupName.isNotEmpty()) {
+                auth = FirebaseAuth.getInstance()
+                val currentUser = auth.currentUser
+                if (currentUser != null) {
+                    val userId = currentUser.uid
+                    val dataReference = FirebaseDatabase.getInstance().reference
+                        .child("Group")
+                        .child(userId)
+
+                    // Check if the category already exists
+                    val categoryQuery = dataReference.orderByChild("GroupName").equalTo(groupName)
+                    categoryQuery.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                // Category already exists
+                                Toast.makeText(applicationContext, "Group already exists", Toast.LENGTH_SHORT).show()
+                            } else {
+                                // Category does not exist, add it to the database
+                                val GroupId = dataReference.push().key
+                                val category = groupData(GroupId, groupName)
+                                dataReference.child(GroupId).setValue(category).addOnCompleteListener { groupTask ->
+                                    if (groupTask.isSuccessful) {
+                                        Toast.makeText(applicationContext, "group added successfully", Toast.LENGTH_SHORT).show()
+                                        taskGroupName.text = null
+                                    } else {
+                                        Toast.makeText(applicationContext, groupTask.exception?.message, Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {
+                            Toast.makeText(applicationContext, databaseError.message, Toast.LENGTH_SHORT).show()
+                        }
+                    })
                 } else {
-                    Toast.makeText(applicationContext, it.exception?.message, Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(applicationContext, "User is not authenticated", Toast.LENGTH_SHORT).show()
                 }
-            }
-        }
+            } else {
+                Toast.makeText(applicationContext, "Please enter a category name", Toast.LENGTH_SHORT).show()
+            }  }
 
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

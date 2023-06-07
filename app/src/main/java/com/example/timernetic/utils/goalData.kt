@@ -1,4 +1,3 @@
 package com.example.timernetic.utils
 
-class goalData {
-}
+data class goalData (val goalId: String, val goalmin: String)

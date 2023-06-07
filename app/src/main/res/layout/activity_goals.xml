@@ -36,13 +36,30 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:paddingTop="10dp"
-            android:text="Select goal completion time"
+            android:text="Select minimum goal completion time"
             android:textColor="#B4000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TimePicker
-            android:id="@+id/timePicker"
+            android:id="@+id/timePickermin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numbersBackgroundColor="#D6D6D6"
+            android:numbersSelectorColor="#D7319A56"
+            android:paddingTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingTop="10dp"
+            android:text="Select Maximum goal completion time"
+            android:textColor="#B4000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TimePicker
+            android:id="@+id/timePickermax"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:numbersBackgroundColor="#D6D6D6"
