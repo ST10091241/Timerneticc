@@ -81,6 +81,7 @@ class GroupActivity : AppCompatActivity() {
         addGroupbtn = findViewById(R.id.addGroupbtn)
         taskGroupName = findViewById(R.id.taskGroupName)
         addGroupbtn.setOnClickListener{
+
             val groupName = taskGroupName.text.toString()
             if (groupName.isNotEmpty()) {
                 auth = FirebaseAuth.getInstance()
@@ -126,6 +127,7 @@ class GroupActivity : AppCompatActivity() {
         }
 
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true
