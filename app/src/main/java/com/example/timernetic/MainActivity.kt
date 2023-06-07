@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
+        setContentView(R.layout.activity_main)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
